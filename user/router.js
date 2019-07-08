@@ -35,11 +35,4 @@ router.post('/users', function (req, res, next) {
     }
 })
 
-router.get('/users', function (req, res, next) {
-    User
-        .findAll()
-        .then(users => res.status(200).send(users))
-        .catch(err => next(err))
-})
-
 module.exports = router
