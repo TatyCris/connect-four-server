@@ -1,14 +1,14 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Lobby = db.define('lobby',
+const Room = db.define('room',
     {
         name: {
             type: Sequelize.STRING,
-            field: 'lobby_name'
+            field: 'room_name'
         }
     },
-    { tableName: 'lobby' }
+    { tableName: 'room' }
 )
 
-module.exports = Lobby
+module.exports = Room
