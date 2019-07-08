@@ -6,29 +6,27 @@ const auth = require('./middleware')
 
 const router = new Router()
 
-router.post('/logins', function (req, res) {
-    const email = req.body.email
-    const login = req.body.login
+router.get('/login', function (req, res) {
+    const userName = req.body.userName
+    const password = req.body.password
 
-    if(!email && !login){
+    if(!userName && !password){
         res.status(400).send({
-            message: 'Please enter a valid email and/or password'
+            message: 'Please enter a valid userName and/or password'
         })
     } else {
-        //Find user based on the email adress
         User
             .findOne({
                 where: {
-                    email: email
+                    userName: userName
                 }
             })
             .then(user => {
                 if (!user) {
                     res.status(400).send({
-                        message: `User with this email does not exist`
+                        message: `User with this userName does not exist`
                     })
                 }
-                //use bcrypt to check the password
                 if(bcrypt.compareSync(password, user.password)) {
                     res.send({
                         jwt: toJWT({userId: user.id})
@@ -48,9 +46,9 @@ router.post('/logins', function (req, res) {
     }
 })
 
-router.get('/secret-endpoint', auth, (req, res) =>{
+router.get('/authentication', auth, (req, res) => {
     res.send({
-        message: `Thanks for visiting the secret endpoint ${req.user.email} `
+        message: `The user ${req.user.userName} is authenticated`,
     })
 })
 
