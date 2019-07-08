@@ -13,7 +13,7 @@ const Game = sequelize.define('room',
     { tableName: 'room' }
 )
 
-Game.hasMany(User)
-Game.hasMany(Column)
+// Game.hasMany(User)
+// Game.hasMany(Column)
 
 module.exports = Game
