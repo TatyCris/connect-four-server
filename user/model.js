@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../db')
+const Lobby = require('../lobby/model')
 
 const User = sequelize.define('user', {
     userName: {
@@ -15,4 +16,5 @@ const User = sequelize.define('user', {
         tableName: 'users'
     })
 
+User.belongsTo(Lobby)
 module.exports = User
