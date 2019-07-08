@@ -6,6 +6,7 @@ const gameRouter = require('./game/router')
 const db = require('./db')
 const gameModel = require('./game/model')
 const userModel = require('./user/model')
+const authRouter = require('./auth/router')
 
 const app = express()
 
@@ -24,3 +25,4 @@ app.listen(port, onListen)
 
 app.use(userRouter)
 app.use(gameRouter)
+app.use(authRouter)
