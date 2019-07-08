@@ -2,9 +2,9 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const userRouter = require('./user/router')
-const lobbyRouter = require('./lobby/router')
+const gameRouter = require('./game/router')
 const db = require('./db')
-const lobbyModel = require('./lobby/model')
+const gameModel = require('./game/model')
 const userModel = require('./user/model')
 
 const app = express()
@@ -23,4 +23,4 @@ function onListen () {
 app.listen(port, onListen)
 
 app.use(userRouter)
-app.use(lobbyRouter)
+app.use(gameRouter)

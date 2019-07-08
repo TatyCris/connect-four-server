@@ -7,7 +7,7 @@ router.post('/user', function (req, res, next) {
     const user = {
         userName: req.body.userName,
         password: bcrypt.hashSync(req.body.password, 10),
-        lobbyId: req.body.lobbyId
+        gameId: req.body.gameId
     }
 
     User
