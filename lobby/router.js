@@ -30,4 +30,15 @@ router.get('/lobbys/:id', function (req, res, next) {
         .catch(err => next(err))
 })
 
+router.put('/lobbys/:id', function (req, res, next) {
+    const { id } = req.params
+    const { name } = req.body
+    Lobby.findByPk(id)
+        .then(lobby => {
+            return lobby.update({ name })
+        })
+        .then(lobby => res.json(lobby))
+        .catch(err => next(err))
+})
+
 module.exports = router

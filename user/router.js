@@ -6,7 +6,8 @@ const User = require('./model')
 router.post('/user', function (req, res, next) {
     const user = {
         userName: req.body.userName,
-        password: bcrypt.hashSync(req.body.password, 10)
+        password: bcrypt.hashSync(req.body.password, 10),
+        lobbyId: req.body.lobbyId
     }
 
     User

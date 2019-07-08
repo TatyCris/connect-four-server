@@ -3,9 +3,9 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const userRouter = require('./user/router')
 const lobbyRouter = require('./lobby/router')
-// const db = require('./db')
-// const messagesModel = require('./messages/model')
-// const messageRouter = require('./messages/router')
+const db = require('./db')
+const lobbyModel = require('./lobby/model')
+const userModel = require('./user/model')
 
 const app = express()
 
@@ -13,8 +13,6 @@ app.use(cors())
 
 const jsonParser = bodyParser.json()
 app.use(jsonParser)
-
-// app.use(messageRouter)
 
 const port = process.env.PORT || 5000
 
