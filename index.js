@@ -12,7 +12,7 @@ app.use(cors())
 const jsonParser = bodyParser.json()
 app.use(jsonParser)
 
-app.use(messageRouter)
+// app.use(messageRouter)
 
 const port = process.env.PORT || 5000
 
