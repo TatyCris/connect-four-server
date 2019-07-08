@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const userRouter = require('./user/router')
 // const db = require('./db')
 // const messagesModel = require('./messages/model')
 // const messageRouter = require('./messages/router')
@@ -21,3 +22,5 @@ function onListen () {
 }
 
 app.listen(port, onListen)
+
+app.use(userRouter)
