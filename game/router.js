@@ -4,7 +4,7 @@ const Game = require('./model')
 const auth = require('../auth/middleware')
 const Sse = require('json-sse')
 
-router.get('/games', auth, function (req, res, next) {
+router.get('/games', function (req, res, next) {
     const limit = req.query.limit || 10
     const offset = req.query.offset || 0
 
