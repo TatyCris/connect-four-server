@@ -4,20 +4,6 @@ const Room = require('./model')
 const auth = require('../auth/middleware')
 const Sse = require('json-sse')
 
-// router.get('/rooms', function (req, res, next) {
-//     const limit = req.query.limit || 10
-//     const offset = req.query.offset || 0
-
-//     Promise.all([
-//         Room.count(),
-//         Room.findAll({ limit, offset })
-//     ])
-//         .then((total, rooms) => {
-//             res.send({ rooms, total })
-//         })
-//         .catch(error => next(error))
-// })
-
 Room
     .findAll()
     .then(rooms => {
