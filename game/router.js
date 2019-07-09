@@ -36,8 +36,8 @@ Game
                         const roomId = req.body.roomId
                         for (i = 1; i < 8; i++) {
                             Game.create({ boardIndex: i , roomId})
-                            }
-                            return res.status(201).send(game)
+                        }
+                        return res.status(201).send(room)
                     }
                 })
                 .catch(err => next(err))
