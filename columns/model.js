@@ -15,4 +15,5 @@ const Column = sequelize.define('column',
 )
 
 // Column.belongsTo(Game)
+// Game.hasMany(Column)
 module.exports = Column
