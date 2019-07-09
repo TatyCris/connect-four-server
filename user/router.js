@@ -35,4 +35,15 @@ router.post('/users', function (req, res, next) {
     }
 })
 
+router.put('/users/:id', function (req, res, next) {
+    const id = (req.params.id)
+    const gameId = req.body.gameId
+
+    User
+        .findByPk(id)
+        .then(user => user.update({ gameId }))
+        .then(user => res.status(200).send(user))
+        .catch(err => next(err))
+})
+
 module.exports = router

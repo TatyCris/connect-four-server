@@ -35,9 +35,7 @@ router.put('/games/:id', auth, function (req, res, next) {
     const { id } = req.params
     const { name } = req.body
     Game.findByPk(id)
-        .then(game => {
-            return game.update({ name })
-        })
+        .then(game => game.update({ name }))
         .then(game => res.json(game))
         .catch(err => next(err))
 })
