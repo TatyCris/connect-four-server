@@ -5,13 +5,6 @@ const Sse = require('json-sse')
 
 const router = new Router()
 
-// router.get('/games/:id', function (req, res, next) {
-//     const id = req.params.id
-//     Game.findByPk(id)
-//         .then(game => res.json(game))
-//         .catch(err => next(err))
-// })
-
 Column
     .findAll()
     .then(columns => {
@@ -39,18 +32,15 @@ Column
                 .then(game => {
                     if (!game) {
                         res.status(404).send(game)
-                    }
-                    req.body.gameId = game.id
-
-                    Column
-                        .create(req.body)
-                        .then(game => {
-                            for (i = 1; i < 8; i++) {
-                                Column.create({ game, boardIndex: i })
+                    } else {
+                        const gameId = req.body.gameId
+                        for (i = 1; i < 8; i++) {
+                            Column.create({ gameId, boardIndex: i})
                             }
                             return res.status(201).send(game)
-                        })
+                        
                         .catch(err => next(err))
+                    }
                 })
         })
 

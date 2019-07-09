@@ -57,7 +57,7 @@ router.post('/games', auth, (req, res, next) =>{
         .create(req.body)
         .then(game => {
             Game
-                .findAll(gameId, {include:[User]})
+                .findAll()
                 .then(games => {
                     const json = JSON.stringify(games)
                     const stream = new Sse(games)
