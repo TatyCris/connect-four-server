@@ -1,6 +1,6 @@
-const Game = require('./model')
 const { Router } = require('express')
 const Sse = require('json-sse')
+const Game = require('./model')
 const Room = require('../room/model')
 
 const router = new Router()
@@ -14,7 +14,7 @@ Game
         function onStream(req, res) {
             stream.init(req, res)
         }
-        router.get('/stream', onStream)
+        router.get('/rooms/:id/games/stream', onStream)
 
         router.get('/rooms/:id/games', (req, res) => {
             Game
