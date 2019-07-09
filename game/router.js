@@ -3,7 +3,7 @@ const router = express.Router()
 const Game = require('./model')
 const auth = require('../auth/middleware')
 
-router.get('/games', auth, function (req, res, next) {
+router.get('/games', function (req, res, next) {
     const limit = req.query.limit || 10
     const offset = req.query.offset || 0
 
@@ -17,7 +17,7 @@ router.get('/games', auth, function (req, res, next) {
         .catch(error => next(error))
 })
 
-router.post('/games', auth, function (req, res, next) {
+router.post('/games', function (req, res, next) {
     Game
         .create(req.body)
         .then(game => res.json(game))
