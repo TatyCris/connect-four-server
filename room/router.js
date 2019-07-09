@@ -29,9 +29,9 @@ Room
         })
 
         router.post('/rooms', function (req, res, next) {
-            const {room} = req.body
+            const room = req.body
             Room
-                .create({room})
+                .create(room)
                 .then(room => {
                     if(!room){
                         return res.status(404).send({
@@ -52,39 +52,39 @@ Room
     })
     .catch(err=> next(err))
 
-router.post('/rooms', auth, (req, res, next) =>{
-    Room
-        .create(req.body)
-        .then(room => {
-            Room
-                .findAll()
-                .then(rooms => {
-                    const json = JSON.stringify(rooms)
-                    const stream = new Sse(rooms)
-                    stream.updateInit(json)
-                    stream.send(json)
-                    res.status(201).send(room)
-                })
-                .catch(err => console.log(err))
-        })
-        .catch(err => next(err))
-})
+// router.post('/rooms',  (req, res, next) =>{
+//     Room
+//         .create(req.body)
+//         .then(room => {
+//             Room
+//                 .findAll()
+//                 .then(rooms => {
+//                     const json = JSON.stringify(rooms)
+//                     const stream = new Sse(rooms)
+//                     stream.updateInit(json)
+//                     stream.send(json)
+//                     res.status(201).send(room)
+//                 })
+//                 .catch(err => console.log(err))
+//         })
+//         .catch(err => next(err))
+// })
 
-router.post('/rooms', auth, function (req, res, next) {
-    Room
-        .create(req.body)
-        .then(room => res.json(room))
-        .catch(err => next(err))
-})
+// router.post('/rooms',  function (req, res, next) {
+//     Room
+//         .create(req.body)
+//         .then(room => res.json(room))
+//         .catch(err => next(err))
+// })
 
-router.get('/rooms/:id', auth, function (req, res, next) {
+router.get('/rooms/:id',  function (req, res, next) {
     const id = req.params.id
     Room.findByPk(id)
         .then(room => res.json(room))
         .catch(err => next(err))
 })
 
-router.put('/rooms/:id', auth, function (req, res, next) {
+router.put('/rooms/:id',  function (req, res, next) {
     const { id } = req.params
     const { name } = req.body
     Room.findByPk(id)
