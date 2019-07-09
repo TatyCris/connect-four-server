@@ -3,20 +3,16 @@ const sequelize = require('../db')
 const User = require('../user/model')
 const Column = require('../columns/model')
 
-const Game = sequelize.define('game',
+
+const Game = db.define('game',
     {
         name: {
             type: Sequelize.STRING,
-            field: 'room_name'
+            field: 'game_name'
         }
     },
-    {   timestamps: null,
-        tableName: 'game' }
+
+    { tableName: 'game' }
 )
-
-// Game.hasMany(User)
-// Game.hasMany(Column)
-
-
 
 module.exports = Game
