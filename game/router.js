@@ -17,32 +17,28 @@ Game
         router.get('/stream', onStream)
 
         router.get('/rooms/:id/games', (req, res) => {
-            Game.findAll()
+            Game
+                .findAll({ where: { roomId: req.params.id }})
                 .then(game => res.json(game))
                 .catch(err => next(err))
         })
 
         router.post('/rooms/:id/games', (req, res, next) => {
             Room
-                .findOne({
-                    where: {
-                        id: req.params.id,
-                    }
-                })
+                .findOne({ where: { id: req.params.id }})
                 .then(room => {
                     if (!room) {
                         res.status(404).send(room)
                     } else {
-                        const roomId = req.body.roomId
+                        const roomId = req.params.id
                         for (i = 1; i < 8; i++) {
-                            Game.create({ boardIndex: i , roomId})
+                            Game.create({ boardIndex: i, roomId })
                         }
                         return res.status(201).send(room)
                     }
                 })
                 .catch(err => next(err))
         })
-
     })
     .catch(err => next(err))
 
