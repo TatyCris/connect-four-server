@@ -2,7 +2,7 @@ const User = require('../user/model')
 
 function auth(req, res, next) {
     const auth = req.headers.autorization && req.headers.autorization.split(' ')
-    if (auto && auth[0] === 'Bearer' && auth[1]){
+    if (auth && auth[0] === 'Bearer' && auth[1]){
         try {
             const data = toData(auth[1])
             User
