@@ -70,12 +70,12 @@ router.post('/games', auth, (req, res, next) =>{
         .catch(err => next(err))
 })
 
-// router.post('/games', auth, function (req, res, next) {
-//     Game
-//         .create(req.body)
-//         .then(game => res.json(game))
-//         .catch(err => next(err))
-// })
+router.post('/games', auth, function (req, res, next) {
+    Game
+        .create(req.body)
+        .then(game => res.json(game))
+        .catch(err => next(err))
+})
 
 router.get('/games/:id', auth, function (req, res, next) {
     const id = req.params.id
