@@ -21,7 +21,7 @@ router.get('/games', (req, res) =>{
 router.post('/games', (req, res) => {
     Game
         .create(req.body)
-        .then(game=> {
+        .then(game => {
             for (i=1; i<8; i++){
                 Column.create({game, boardIndex : i})
             }
