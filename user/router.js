@@ -37,11 +37,11 @@ router.post('/users', function (req, res, next) {
 
 router.put('/users/:id', function (req, res, next) {
     const id = (req.params.id)
-    const gameId = req.body.gameId
+    const roomId = req.body.roomId
 
     User
         .findByPk(id)
-        .then(user => user.update({ gameId }))
+        .then(user => user.update({ roomId }))
         .then(user => res.status(200).send(user))
         .catch(err => next(err))
 })

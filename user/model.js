@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../db')
-const Game = require('../game/model')
+const Room = require('../room/model')
 
 const User = sequelize.define('user', {
     userName: {
@@ -16,6 +16,6 @@ const User = sequelize.define('user', {
         tableName: 'users'
     })
 
-User.belongsTo(Game)
-Game.hasMany(User);
+User.belongsTo(Room)
+Room.hasMany(User);
 module.exports = User
