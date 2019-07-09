@@ -24,7 +24,7 @@ Room
         const json = JSON.stringify(rooms)
         const stream = new Sse(json)
 
-        router.get('/stream', function (req, res, next) {
+        router.get('/rooms/stream', function (req, res, next) {
             return stream.init(req, res)
         })
 
