@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../db')
+const Column = require('../columns/model')
 
 const Game = sequelize.define('game',
     {
@@ -11,5 +12,8 @@ const Game = sequelize.define('game',
 
     { tableName: 'game' }
 )
+
+Game.hasMany(Column)
+Column.belongsTo(Game)
 
 module.exports = Game

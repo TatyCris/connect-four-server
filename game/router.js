@@ -12,7 +12,7 @@ router.get('/games', auth, function (req, res, next) {
         Game.count(),
         Game.findAll({ limit, offset })
     ])
-        .then(([total, games]) => {
+        .then((total, games) => {
             res.send({ games, total })
         })
         .catch(error => next(error))
