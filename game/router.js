@@ -22,7 +22,7 @@ Game
                 .catch(err => next(err))
         })
 
-        router.post('/rooms/:id/games', (req, res) => {
+        router.post('/rooms/:id/games', (req, res, next) => {
             Room
                 .findOne({
                     where: {
