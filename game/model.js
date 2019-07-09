@@ -1,10 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../db')
-const User = require('../user/model')
-const Column = require('../columns/model')
 
-
-const Game = db.define('game',
+const Game = sequelize.define('game',
     {
         name: {
             type: Sequelize.STRING,
