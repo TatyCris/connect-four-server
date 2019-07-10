@@ -40,8 +40,24 @@ router.put('/rooms/:id/columns', function (req, res, next) {
 
     Column
         .findByPk(id)
-        .then(column => column.update({ rows }))
-        .then(column => res.status(200).send(column))
+        .then(column => column.update( {rows} ))
+        .then(column => {
+            column.map(col=>{
+                const rows = col.rows.map(row =>{
+                    row
+                })
+
+                if(rows.length < 6){
+                    let missing = 6 - rows.length
+
+                    for(i = missing; i< rows.length; i++){
+                        rows.push(column)
+                    }
+                }
+            })
+            res.status(200).send(column)
+        
+        })
         .catch(err => next(err))
 })
 

@@ -47,3 +47,8 @@ router.put('/users/:id', function (req, res, next) {
 })
 
 module.exports = router
+
+// res.status(200).send(column)
+
+// .then(column => column.update({ rows }))
+// .then(column => res.status(200).send(column))
