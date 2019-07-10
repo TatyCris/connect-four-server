@@ -19,7 +19,7 @@ router.get('/rooms/:id/columns', (req, res) => {
 
 router.post('/rooms/:id/columns', (req, res, next) => {
     Room
-        .findOne({ where: { id: req.params.id }})
+        .findOne({ where: { id: req.params.id } })
         .then(room => {
             if (!room) {
                 res.status(404).send(room)
@@ -33,5 +33,13 @@ router.post('/rooms/:id/columns', (req, res, next) => {
         })
         .catch(err => next(err))
 })
+
+// router.put('/rooms/:id/columns', function (req, res, next) {
+//     Column
+//         .findOne({ where: { id: ? } })
+//         .then(row => room.update( req.body.rows ))
+//         .then(room => res.json(room))
+//         .catch(err => next(err))
+// })
 
 module.exports = router

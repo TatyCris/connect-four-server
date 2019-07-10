@@ -18,7 +18,6 @@ Room
     .findAll(query)
     .then(rooms => {
         const json = JSON.stringify(rooms)
-        const pretty = JSON.stringify(rooms, null, 2)
         const stream = new Sse(json)
 
         router.get('/rooms/stream', function (req, res, next) {
@@ -78,9 +77,6 @@ Room
                 .then(room => res.json(room))
                 .catch(err => next(err))
         })
-
     })
-    .catch(err => next(err))
-
 
 module.exports = router

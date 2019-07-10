@@ -18,8 +18,8 @@ function onListen () {
     console.log(`Listen on: ${port}`);
 }
 
-app.listen(port, onListen)
 app.use(userRouter)
+app.listen(port, onListen)
 app.use(columnRouter)
 app.use(roomRouter)
 app.use(authRouter)
