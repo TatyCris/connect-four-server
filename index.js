@@ -1,13 +1,9 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-// const db = require('./db')
 const userRouter = require('./user/router')
-const gameRouter = require('./game/router')
+const columnRouter = require('./column/router')
 const roomRouter = require('./room/router')
-// const gameModel = require('./game/model')
-// const userModel = require('./user/model')
-// const columnModel = require('./columns/model')
 const authRouter = require('./auth/router')
 
 const app = express()
@@ -24,7 +20,6 @@ function onListen () {
 
 app.listen(port, onListen)
 app.use(userRouter)
-app.use(gameRouter)
+app.use(columnRouter)
 app.use(roomRouter)
-app.use(gameRouter)
 app.use(authRouter)
