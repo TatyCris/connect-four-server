@@ -34,4 +34,15 @@ router.post('/rooms/:id/columns', (req, res, next) => {
         .catch(err => next(err))
 })
 
+router.put('/rooms/:id/columns', function (req, res, next) {
+    const id = (req.params.id)
+    const rows = req.body.rows
+
+    Column
+        .findByPk(id)
+        .then(column => column.update({ rows }))
+        .then(column => res.status(200).send(column))
+        .catch(err => next(err))
+})
+
 module.exports = router
