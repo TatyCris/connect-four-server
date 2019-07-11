@@ -20,11 +20,11 @@ Room
         const json = JSON.stringify(rooms)
         const stream = new Sse(json)
 
-        router.get('/rooms/stream', function (req, res, next) {
+        router.get('/rooms/stream', function (req, res) {
             return stream.init(req, res)
         })
 
-        router.get('/rooms', function (req, res, next) {
+        router.get('/rooms', function ( res, next) {
             Room
                 .findAll()
                 .then(room => res.status(200).send(room))
@@ -40,10 +40,10 @@ Room
                             message: 'Room does not exist'
                         })
                     }
-
+                    
                     const columns = []
                     for (i = 1; i < 8; i++) {
-                        columns.push({ index: i, roomId: room.id })
+                       columns.push({ index: i, roomId: room.id })
                     }
 
                     return Column
@@ -57,7 +57,7 @@ Room
                                     stream.send(json)
                                     return res.send(room)
                                 })
-                        })
+                        })                    
                 })
                 .catch(err => next(err))
         })
@@ -69,7 +69,7 @@ Room
                 .catch(err => next(err))
         })
 
-        router.put('/rooms/:id', function (req, res, next) {
+       router.put('/rooms/:id', function (req, res, next) {
             const { id } = req.params
             const { name } = req.body
             Room.findByPk(id)
@@ -77,37 +77,45 @@ Room
                 .then(room => res.json(room))
                 .catch(err => next(err))
         })
-        router.put('/rooms/:id/columns', function (req, res, next) {
-            // console.log('hifromtaty')
-            // console.log('req:', req.body)
-            const roomId = req.params.id
-            const { player } = req.body
-            const { index } = req.body
 
-            Column
-                .findAll({ where: { roomId, index } })
-                .then(columns => {
-                    const promises = columns.reverse().map(column => {
-                        // console.log('heretaty', column.dataValues.rows, column.dataValues.rows.length)
-                        if (column.dataValues.rows.length < 6) {
-                            return column.update({
-                                rows: [...column.dataValues.rows, player]
-                            })
-                        } else {
-                            return null
-                        }
-                    })
+        // router.put('/rooms/:id/columns', function (req, res, next) {
+        //     // console.log('hifromtaty')
+        //     // console.log('req:', req.body)
+        //     const roomId = req.params.id
+        //     const { player } = req.body
+        //     const { index } = req.body
+        
+        //     Column
+        //         .findAll({ where: { roomId, index } })
+        //         .then(columns => {
+        //             const promises = columns.reverse().map(column => {
+        //                 // console.log('heretaty', column.dataValues.rows, column.dataValues.rows.length)
+        //                 if (column.dataValues.rows.length < 6) {
+        //                     return column.update({
+        //                         rows: [...column.dataValues.rows, player]
+        //                     })
+        //                 } else {
+        //                     return null
+        //                 }
+        //             })
+        
+        //             Promise
+        //                 .all(promises)
+        //                 .then(results => {
+        //                     res.send(results)
+        //                 })
+        //                 .then(response => {
+        //                     const json = JSON.stringify(response)
+        //                     stream.updateInit(json)
+        //                     stream.send(json)
+        //                     return res.send(response)
+        //                 })
+                    
+        //         })
+                
+        //         .catch(err => next(err))
+        // })
 
-                    Promise
-                        .all(promises)
-                        .then(results => {
-
-                            stream.send(results)
-                        })
-                        .catch(err => console.log(err))
-                })
-                .catch(err => next(err))
-        })
     })
 
 module.exports = router
