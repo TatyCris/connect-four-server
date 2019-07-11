@@ -44,7 +44,7 @@ Room
                     
                     const columns = []
                     for (i = 1; i < 8; i++) {
-                       columns.push({ index: i, roomId: room.id })
+                       columns.push({ index: i, roomId: room.id, rows: '*' })
                     }
 
                     return Column

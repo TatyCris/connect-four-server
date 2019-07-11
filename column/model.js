@@ -8,7 +8,7 @@ const Column = sequelize.define('column',
         },
         rows: {
             type: Sequelize.ARRAY(Sequelize.STRING),
-            defaultValue: ['']
+            defaultValue: ['x']
         }
     },
     {tableName: 'columns'}
