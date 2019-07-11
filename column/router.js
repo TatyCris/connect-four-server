@@ -39,7 +39,7 @@ router.put('/rooms/:id/columns', function (req, res, next) {
     const { id } = req.params
     const rows  = req.body
     Column.findByPk(id)
-        .then(column => column.update( {rows: [...'o']}))
+        .then(column => column.update( {rows:['1']}))
         .then(column => console.log('Column test: ',column)
         )
         .catch(err => next(err))
