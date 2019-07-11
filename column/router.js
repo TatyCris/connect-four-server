@@ -34,34 +34,34 @@ router.get('/rooms/:id/columns', (req, res) => {
 //         .catch(err => next(err))
 // })
 
-router.put('/rooms/:id/columns', function (req, res, next) {
-    // console.log('hifromtaty')
-    // console.log('req:', req.body)
-    const roomId = req.params.id
-    const { player } = req.body
-    const { index } = req.body
+// router.put('/rooms/:id/columns', function (req, res, next) {
+//     // console.log('hifromtaty')
+//     // console.log('req:', req.body)
+//     const roomId = req.params.id
+//     const { player } = req.body
+//     const { index } = req.body
 
-    Column
-        .findAll({ where: { roomId, index } })
-        .then(columns => {
-            const promises = columns.reverse().map(column => {
-                // console.log('heretaty', column.dataValues.rows, column.dataValues.rows.length)
-                if (column.dataValues.rows.length < 6) {
-                    return column.update({
-                        rows: [...column.dataValues.rows, player]
-                    })
-                } else {
-                    return null
-                }
-            })
+//     Column
+//         .findAll({ where: { roomId, index } })
+//         .then(columns => {
+//             const promises = columns.reverse().map(column => {
+//                 // console.log('heretaty', column.dataValues.rows, column.dataValues.rows.length)
+//                 if (column.dataValues.rows.length < 6) {
+//                     return column.update({
+//                         rows: [...column.dataValues.rows, player]
+//                     })
+//                 } else {
+//                     return null
+//                 }
+//             })
 
-            Promise
-                .all(promises)
-                .then(results => {
-                    res.send(results)
-                })
-        })
-        .catch(err => next(err))
-})
+//             Promise
+//                 .all(promises)
+//                 .then(results => {
+//                     res.send(results)
+//                 })
+//         })
+//         .catch(err => next(err))
+// })
 
 module.exports = router
