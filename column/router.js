@@ -44,7 +44,7 @@ router.put('/rooms/:id/columns', function (req, res, next) {
     Column
         .findAll({ where: { roomId, index } })
         .then(columns => {
-            const promises = columns.map(column => {
+            const promises = columns.reverse().map(column => {
                 // console.log('heretaty', column.dataValues.rows, column.dataValues.rows.length)
                 if (column.dataValues.rows.length < 6) {
                     return column.update({
