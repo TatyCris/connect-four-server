@@ -17,22 +17,22 @@ router.get('/rooms/:id/columns', (req, res) => {
         .catch(err => next(err))
 })
 
-router.post('/rooms/:id/columns', (req, res, next) => {
-    Room
-        .findOne({ where: { id: req.params.id } })
-        .then(room => {
-            if (!room) {
-                res.status(404).send(room)
-            } else {
-                const roomId = req.params.id
-                for (i = 1; i < 8; i++) {
-                    Column.create({ index: i, roomId })
-                }
-                return res.status(201).send(room)
-            }
-        })
-        .catch(err => next(err))
-})
+// router.post('/rooms/:id/columns', (req, res, next) => {
+//     Room
+//         .findOne({ where: { id: req.params.id } })
+//         .then(room => {
+//             if (!room) {
+//                 res.status(404).send(room)
+//             } else {
+//                 const roomId = req.params.id
+//                 for (i = 1; i < 8; i++) {
+//                     Column.create({ index: i, roomId })
+//                 }
+//                 return res.status(201).send(room)
+//             }
+//         })
+//         .catch(err => next(err))
+// })
 
 router.put('/rooms/:id/columns', function (req, res, next) {
     // console.log('hifromtaty')
@@ -46,7 +46,7 @@ router.put('/rooms/:id/columns', function (req, res, next) {
         .then(columns => {
             const promises = columns.map(column => {
                 // console.log('heretaty', column.dataValues.rows, column.dataValues.rows.length)
-                if (column.dataValues.rows.length < 7) {
+                if (column.dataValues.rows.length < 6) {
                     return column.update({
                         rows: [...column.dataValues.rows, player]
                     })
