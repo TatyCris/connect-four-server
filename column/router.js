@@ -35,13 +35,32 @@ router.post('/rooms/:id/columns', (req, res, next) => {
 })
 
 router.put('/rooms/:id/columns', function (req, res, next) {
-    console.log('request test: ', req.body)
-    const { id } = req.params
-    const rows  = req.body
-    Column.findByPk(id)
-        .then(column => column.update( {rows: [...'o']}))
-        .then(column => console.log('Column test: ',column)
-        )
+    // console.log('hifromtaty')
+    // console.log('req:', req.body)
+    const roomId = req.params.id
+    const { player } = req.body
+    const { index } = req.body
+
+    Column
+        .findAll({ where: { roomId, index } })
+        .then(columns => {
+            const promises = columns.map(column => {
+                // console.log('heretaty', column.dataValues.rows, column.dataValues.rows.length)
+                if (column.dataValues.rows.length < 7) {
+                    return column.update({
+                        rows: [...column.dataValues.rows, player]
+                    })
+                } else {
+                    return null
+                }
+            })
+
+            Promise
+                .all(promises)
+                .then(results => {
+                    res.send(results)
+                })
+        })
         .catch(err => next(err))
 })
 
