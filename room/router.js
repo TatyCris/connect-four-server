@@ -40,10 +40,10 @@ Room
                             message: 'Room does not exist'
                         })
                     }
-                    
+
                     const columns = []
                     for (i = 1; i < 8; i++) {
-                       columns.push({ index: i, roomId: room.id })
+                        columns.push({ index: i, roomId: room.id })
                     }
 
                     return Column
@@ -57,7 +57,7 @@ Room
                                     stream.send(json)
                                     return res.send(room)
                                 })
-                        })                    
+                        })
                 })
                 .catch(err => next(err))
         })
@@ -69,7 +69,7 @@ Room
                 .catch(err => next(err))
         })
 
-       router.put('/rooms/:id', function (req, res, next) {
+        router.put('/rooms/:id', function (req, res, next) {
             const { id } = req.params
             const { name } = req.body
             Room.findByPk(id)
