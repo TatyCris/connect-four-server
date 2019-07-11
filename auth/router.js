@@ -6,7 +6,7 @@ const auth = require('./middleware')
 
 const router = new Router()
 
-router.get('/login', function (req, res) {
+router.post('/login', function (req, res) {
     const userName = req.body.userName
     const password = req.body.password
 
