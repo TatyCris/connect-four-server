@@ -69,7 +69,7 @@ Room
                 .catch(err => next(err))
         })
 
-        router.put('/rooms/:id', function (req, res, next) {
+       router.put('/rooms/:id', function (req, res, next) {
             const { id } = req.params
             const { name } = req.body
             Room.findByPk(id)

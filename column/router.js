@@ -34,12 +34,15 @@ router.post('/rooms/:id/columns', (req, res, next) => {
         .catch(err => next(err))
 })
 
-// router.put('/rooms/:id/columns', function (req, res, next) {
-//     Column
-//         .findOne({ where: { id: ? } })
-//         .then(row => room.update( req.body.rows ))
-//         .then(room => res.json(room))
-//         .catch(err => next(err))
-// })
+router.put('/rooms/:id/columns', function (req, res, next) {
+    console.log('request test: ', req.body)
+    const { id } = req.params
+    const rows  = req.body
+    Column.findByPk(id)
+        .then(column => column.update( {rows: [...'o']}))
+        .then(column => console.log('Column test: ',column)
+        )
+        .catch(err => next(err))
+})
 
 module.exports = router
