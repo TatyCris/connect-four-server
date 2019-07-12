@@ -20,6 +20,23 @@ Room
         const json = JSON.stringify(rooms)
         const stream = new Sse(json)
 
+        function update (res) {
+            Room
+                .findAll(query)
+                .then(rooms => {
+                    rooms = rooms.map(room => {
+                        room.columns = room.columns.sort((a, b) => a.index - b.index)
+                        
+                        return room
+                    })
+                    
+                    const json = JSON.stringify(rooms)
+                    stream.updateInit(json)
+                    stream.send(json)
+                    return res.send(rooms)
+                })
+        }
+
         router.get('/rooms/stream', function (req, res) {
             return stream.init(req, res)
         })
@@ -61,41 +78,36 @@ Room
                 })
                 .catch(err => next(err))
         })
+
+        router.get('/rooms/:id/columns', (req, res) => {
+            Column
+                .findAll({
+                    where: { roomId: req.params.id },
+                    order: [
+                        ['index', 'ASC']
+                    ]
+                })
+                .then(column => res.json(column))
+                .catch(err => next(err))
+        })
         
-        // router.put('/rooms/:id/columns', function (req, res, next) {
-        //     const roomId = req.params.id
-        //     const { player } = req.body
-        //     const { index } = req.body
-
-        //     Column
-        //         .findAll({ where: { roomId, index } })
-        //         .then(columns => {
-        //             const promises = columns.reverse().map(column => {
-        //                 if (column.dataValues.rows.length < 6) {
-        //                     return column.update({
-        //                         rows: [...column.dataValues.rows, player]
-        //                     })
-        //                 } else {
-        //                     return null
-        //                 }
-        //             })
-
-        //             Promise
-        //                 .all(promises)
-        //                                 // .then(results => {
-        //                                 //     console.log('tatyresult', results)
-
-        //                                 //     res.send(results)
-        //                                 // })
-        //                 .then(response => {
-        //                     const json = JSON.stringify(response)
-        //                     stream.updateInit(json)
-        //                     stream.send(json)
-        //                     return res.send(response)
-        //                 })
-        //         })
-        //         .catch(err => next(err))
-        // })
+        router.put('/rooms/:id/columns', function (req, res, next) {
+            const roomId = req.params.id
+            const { player } = req.body
+            const { index } = req.body
+        
+            Column
+                .findOne({ where: { roomId, index } })
+                .then(column => {                    
+                    
+                    column
+                        .update({
+                            rows: [...column.dataValues.rows, player]
+                        })
+                        .then(() => update(res))
+                })
+                .catch(err => next(err))
+        })        
 
         router.get('/rooms/:id', function (req, res, next) {
             const id = req.params.id
