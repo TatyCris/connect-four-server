@@ -37,9 +37,7 @@ Room
                 })
         }
 
-        console.log('before stream test!')
         router.get('/rooms/stream', function (req, res) {
-            console.log('new stream client')
             return stream.init(req, res)
         })
 
