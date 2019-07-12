@@ -24,7 +24,7 @@ Room
             return stream.init(req, res)
         })
 
-        router.get('/rooms', function ( res, next) {
+        router.get('/rooms', function (res, next) {
             Room
                 .findAll()
                 .then(room => res.status(200).send(room))
@@ -79,17 +79,14 @@ Room
         })
 
         // router.put('/rooms/:id/columns', function (req, res, next) {
-        //     // console.log('hifromtaty')
-        //     // console.log('req:', req.body)
         //     const roomId = req.params.id
         //     const { player } = req.body
         //     const { index } = req.body
-        
+
         //     Column
         //         .findAll({ where: { roomId, index } })
         //         .then(columns => {
         //             const promises = columns.reverse().map(column => {
-        //                 // console.log('heretaty', column.dataValues.rows, column.dataValues.rows.length)
         //                 if (column.dataValues.rows.length < 6) {
         //                     return column.update({
         //                         rows: [...column.dataValues.rows, player]
@@ -98,24 +95,23 @@ Room
         //                     return null
         //                 }
         //             })
-        
+
         //             Promise
         //                 .all(promises)
-        //                 .then(results => {
-        //                     res.send(results)
-        //                 })
+        //                                 // .then(results => {
+        //                                 //     console.log('tatyresult', results)
+                                            
+        //                                 //     res.send(results)
+        //                                 // })
         //                 .then(response => {
         //                     const json = JSON.stringify(response)
         //                     stream.updateInit(json)
         //                     stream.send(json)
         //                     return res.send(response)
         //                 })
-                    
         //         })
-                
         //         .catch(err => next(err))
         // })
-
     })
 
 module.exports = router
