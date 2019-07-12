@@ -99,13 +99,13 @@ Room
             Column
                 .findOne({ where: { roomId, index } })
                 .then(column => {                    
-                    
+                    if (column.dataValues.rows.length < 6) {
                     column
                         .update({
                             rows: [...column.dataValues.rows, player]
                         })
                         .then(() => update(res))
-                })
+                }})
                 .catch(err => next(err))
         })        
 
