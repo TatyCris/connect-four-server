@@ -20,16 +20,16 @@ Room
         const json = JSON.stringify(rooms)
         const stream = new Sse(json)
 
-        function update (res) {
+        function update(res) {
             Room
                 .findAll(query)
                 .then(rooms => {
                     rooms = rooms.map(room => {
                         room.columns = room.columns.sort((a, b) => a.index - b.index)
-                        
+
                         return room
                     })
-                    
+
                     const json = JSON.stringify(rooms)
                     stream.updateInit(json)
                     stream.send(json)
@@ -90,24 +90,25 @@ Room
                 .then(column => res.json(column))
                 .catch(err => next(err))
         })
-        
+
         router.put('/rooms/:id/columns', function (req, res, next) {
             const roomId = req.params.id
             const { player } = req.body
             const { index } = req.body
-        
+
             Column
                 .findOne({ where: { roomId, index } })
-                .then(column => {                    
+                .then(column => {
                     if (column.dataValues.rows.length < 6) {
-                    column
-                        .update({
-                            rows: [...column.dataValues.rows, player]
-                        })
-                        .then(() => update(res))
-                }})
+                        column
+                            .update({
+                                rows: [...column.dataValues.rows, player]
+                            })
+                            .then(() => update(res))
+                    }
+                })
                 .catch(err => next(err))
-        })        
+        })
 
         router.get('/rooms/:id', function (req, res, next) {
             const id = req.params.id
