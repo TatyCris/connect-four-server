@@ -8,6 +8,7 @@ const router = new Router()
 Column
     .findAll()
     .then(columns => {
+        console.log('columns test:', columns)
         const json = JSON.stringify(columns)
         const stream = new Sse(json)
 

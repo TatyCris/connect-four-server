@@ -61,23 +61,7 @@ Room
                 })
                 .catch(err => next(err))
         })
-
-        router.get('/rooms/:id', function (req, res, next) {
-            const id = req.params.id
-            Room.findByPk(id)
-                .then(room => res.json(room))
-                .catch(err => next(err))
-        })
-
-        router.put('/rooms/:id', function (req, res, next) {
-            const { id } = req.params
-            const { name } = req.body
-            Room.findByPk(id)
-                .then(room => room.update({ name }))
-                .then(room => res.json(room))
-                .catch(err => next(err))
-        })
-
+        
         // router.put('/rooms/:id/columns', function (req, res, next) {
         //     const roomId = req.params.id
         //     const { player } = req.body
@@ -100,7 +84,7 @@ Room
         //                 .all(promises)
         //                                 // .then(results => {
         //                                 //     console.log('tatyresult', results)
-                                            
+
         //                                 //     res.send(results)
         //                                 // })
         //                 .then(response => {
@@ -112,6 +96,23 @@ Room
         //         })
         //         .catch(err => next(err))
         // })
+
+        router.get('/rooms/:id', function (req, res, next) {
+            const id = req.params.id
+            Room.findByPk(id)
+                .then(room => res.json(room))
+                .catch(err => next(err))
+        })
+
+        router.put('/rooms/:id', function (req, res, next) {
+            const { id } = req.params
+            const { name } = req.body
+            Room.findByPk(id)
+                .then(room => room.update({ name }))
+                .then(room => res.json(room))
+                .catch(err => next(err))
+        })
+
     })
 
 module.exports = router
