@@ -7,6 +7,10 @@ const Room = sequelize.define('room',
         name: {
             type: Sequelize.STRING,
             field: 'room_name'
+        },
+        turn: {
+            type: Sequelize.STRING,
+            defaultValue: 'x'
         }
     },
 
