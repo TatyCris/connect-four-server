@@ -41,7 +41,7 @@ Room
             return stream.init(req, res)
         })
 
-        router.get('/rooms', function (res, next) {
+        router.get('/rooms', function (req, res, next) {
             Room
                 .findAll()
                 .then(room => res.status(200).send(room))
@@ -93,21 +93,34 @@ Room
 
         router.put('/rooms/:id/columns', function (req, res, next) {
             const roomId = req.params.id
-            const { player } = req.body
             const { index } = req.body
 
-            Column
-                .findOne({ where: { roomId, index } })
-                .then(column => {
-                    if (column.dataValues.rows.length < 6) {
-                        column
-                            .update({
-                                rows: [...column.dataValues.rows, player]
-                            })
-                            .then(() => update(res))
-                    }
+            return Room
+                .findByPk(roomId)
+                .then(room => {
+                    return Column
+                        .findOne({ where: { roomId, index } })
+                        .then(column => {
+                            if (column.dataValues.rows.length < 6) {
+                                column
+                                    .update({
+                                        rows: [...column.dataValues.rows, room.turn]
+                                    })
+                                    .then(() => {
+                                        const newTurn = room.turn === 'x'
+                                            ? 'o'
+                                            : 'x'
+                                        
+                                        room
+                                            .update({ turn: newTurn })
+                                            .then(room => {
+                                                update(res)
+                                            })
+                                    })
+                            }
+                        })
+                        .catch(err => next(err))
                 })
-                .catch(err => next(err))
         })
 
         router.get('/rooms/:id', function (req, res, next) {
