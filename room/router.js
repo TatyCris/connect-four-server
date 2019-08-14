@@ -41,7 +41,7 @@ Room
             return stream.init(req, res)
         })
 
-        router.get('/rooms', function (res, next) {
+        router.get('/rooms', function (req, res, next) {
             Room
                 .findAll()
                 .then(room => res.status(200).send(room))
